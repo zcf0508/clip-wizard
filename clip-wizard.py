@@ -35,15 +35,17 @@ if __name__ == "__main__":
     parser.add_argument("-d", "--dev", action=argparse.BooleanOptionalAction, help="if_cef")
     args = parser.parse_args()
     
-    if args.dev:
+    DEV_MODE = True if args.dev else False
+
+    if DEV_MODE:
         multiprocessing.Process(target=run_app).start()
     else:
         app.config.setdefault('SERVER_NAME', 'localhost:%s' % SERVER_PORT)
 
     webview.create_window(
         title='Hello world', 
-        url=f'http://localhost:{CLIENT_PORT}/' if args.dev else app,
+        url=f'http://localhost:{CLIENT_PORT}/' if DEV_MODE else app,
         confirm_close=True,
         js_api=Api()
     )
-    webview.start(debug=args.dev)
+    webview.start(debug=DEV_MODE)

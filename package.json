@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
     "dev:client": "cd ./client && pnpm run dev",
-    "dev:server": "python main.py --dev"
+    "dev:server": "python clip-wizard.py --dev",
+    "build": "npm run build:client && npm run build:app",
+    "build:client": "cd ./client && pnpm run build",
+    "build:app": "pyinstaller clip-wizard.spec -y"
   },
   "author": "zcf0508 <zcf0508@live.com>",
   "license": "MIT",

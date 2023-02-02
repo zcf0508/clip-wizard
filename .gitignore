@@ -18,3 +18,5 @@ node_modules
 
 # dist
 server/static
+build
+dist

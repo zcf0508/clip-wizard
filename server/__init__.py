@@ -1,6 +1,16 @@
-from apiflask import APIFlask
+import os
+import sys
 
-app = APIFlask(__name__, static_folder='./static', static_url_path="")
+from flask import Flask
+
+
+def resource_path(relative_path):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative_path)
+    return os.path.join('./', relative_path)
+
+
+app = Flask(__name__, static_url_path="", static_folder=resource_path('static'))
 
 @app.route('/')
 def index():
