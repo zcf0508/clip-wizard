@@ -20,3 +20,9 @@ pnpm install
 ```bash
 npm run dev
 ```
+
+### build
+
+```bash
+python script/build.py
+```
