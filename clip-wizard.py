@@ -43,7 +43,7 @@ if __name__ == "__main__":
         app.config.setdefault('SERVER_NAME', 'localhost:%s' % SERVER_PORT)
 
     webview.create_window(
-        title='Hello world', 
+        title='Clip Wizard', 
         url=f'http://localhost:{CLIENT_PORT}/' if DEV_MODE else app,
         confirm_close=True,
         js_api=Api()

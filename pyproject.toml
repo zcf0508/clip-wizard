@@ -12,3 +12,5 @@ unfixable = ["F401"]
 [tool.mypy]
 warn_return_any = 'True'
 warn_unused_configs = 'True'
+# pip install git+https://github.com/ssfdust/flask-sqlalchemy-stubs.git
+plugins = ["flasksqlamypy"]
