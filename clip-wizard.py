@@ -15,6 +15,7 @@ def get_free_port():
     return port
 
 SERVER_PORT = get_free_port()
+DEV_SERVER_PORT = 13444
 CLIENT_PORT = 12333
 
 class Api():
@@ -24,11 +25,11 @@ class Api():
         """
         return SERVER_PORT
 
-def run_app():
+def run_app(port):
     """
     Run the server in a separate process
     """
-    app.run(port=SERVER_PORT)
+    app.run(port=port)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -38,14 +39,17 @@ if __name__ == "__main__":
     DEV_MODE = True if args.dev else False
 
     if DEV_MODE:
-        multiprocessing.Process(target=run_app).start()
+        multiprocessing.Process(
+            target=run_app, 
+            args=(DEV_SERVER_PORT if DEV_MODE else SERVER_PORT,)
+        ).start()
     else:
         app.config.setdefault('SERVER_NAME', 'localhost:%s' % SERVER_PORT)
 
     webview.create_window(
         title='Clip Wizard', 
         url=f'http://localhost:{CLIENT_PORT}/' if DEV_MODE else app,
-        confirm_close=True,
+        confirm_close=False if DEV_MODE else True,
         js_api=Api()
     )
     webview.start(debug=DEV_MODE)
